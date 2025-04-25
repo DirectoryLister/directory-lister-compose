@@ -5,18 +5,18 @@ services:
     env_file: environment.d/directory-lister.env
     environment:
       CACHE_DRIVER: redis
-      REDIS_HOST: redis
+      REDIS_HOST: cache
       REDIS_PORT: 6379
     ports:
       - ${DIRECTORY_LISTER_PORT:-80}:80
     volumes:
       - ${FILES_PATH}:/data
       - /etc/localtime:/etc/localtime:ro
-    depends_on: [redis]
+    depends_on: [cache]
     restart: unless-stopped
 
-  redis:
-    image: redis:${REDIS_VERSION:-latest}
+  cache:
+    image: valkey/valkey:${VALKEY_VERSION:-latest}
     volumes:
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
