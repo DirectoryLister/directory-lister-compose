@@ -1,7 +1,7 @@
 services:
 
   directory-lister:
-    image: phlak/directory-lister:${DIRECTORY_LISTER_VERSION:-latest}
+    image: directorylister/directorylister:${DIRECTORY_LISTER_VERSION:-latest}
     env_file: environment.d/directory-lister.env
     environment:
       CACHE_DRIVER: redis
