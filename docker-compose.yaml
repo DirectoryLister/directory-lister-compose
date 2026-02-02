@@ -1,10 +1,10 @@
 services:
 
   directory-lister:
-    image: directorylister/directorylister:${DIRECTORY_LISTER_VERSION:-latest}
+    image: directorylister/directorylister:${DIRECTORY_LISTER_VERSION:-5}
     env_file: environment.d/directory-lister.env
     environment:
-      CACHE_DRIVER: redis
+      CACHE_DRIVER: valkey
       REDIS_HOST: cache
       REDIS_PORT: 6379
     ports:
@@ -16,8 +16,9 @@ services:
     restart: unless-stopped
 
   cache:
-    image: valkey/valkey:${VALKEY_VERSION:-latest}
+    image: valkey/valkey:${VALKEY_VERSION:-9}
     volumes:
+      - ${CACHE_VOLUME:-cache-data}:/data
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
 
@@ -32,3 +33,6 @@ services:
     labels:
       com.centurylinklabs.watchtower.scope: ${COMPOSE_PROJECT_NAME}
     restart: unless-stopped
+
+volumes:
+  cache-data: {}
