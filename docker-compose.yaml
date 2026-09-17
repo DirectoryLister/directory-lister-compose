@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
 
   watchtower:
-    image: containrrr/watchtower:${WATCHTOWER_VERSION:-latest}
+    image: nickfedor/watchtower:${WATCHTOWER_VERSION:-latest}
     env_file: environment.d/watchtower.env
     environment:
       WATCHTOWER_SCOPE: ${COMPOSE_PROJECT_NAME}
